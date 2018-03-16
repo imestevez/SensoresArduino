@@ -23,9 +23,9 @@ File myFile;
 void setup() {
   Serial.begin(9600); 
   if (!SD.begin(53)) {
-                      Serial.println("ERROR INICIO");
-                       Serial.println();
-                        return;
+        Serial.println("ERROR INICIO");
+        Serial.println();
+        return;
   }
    while (!Serial) {
     
@@ -66,80 +66,62 @@ void loop() {
     inputString += A;
 
     if (A == 'R') {
-     
-            Serial.println("LECTURA:");
-            Serial.print("Temperatura= ");
-            Serial.print(t);
-            Serial.println(" *C");
-            Serial.println();
+        Serial.println("LECTURA:");
+        Serial.print("Temperatura= ");
+        Serial.print(t);
+        Serial.println(" *C");
+        Serial.println();
     } 
-  else if (A == 'W')
-  {
-            Serial.println("ESCRITURA:");
-            Serial.print("Temperatura= ");
-            Serial.print(t);
-            Serial.println(" *C");
-             Serial.println();
+    else if (A == 'W') {
+      Serial.println("ESCRITURA:");
+      Serial.print("Temperatura= ");
+      Serial.print(t);
+      Serial.println(" *C");
+      Serial.println();
 
-             Serial.println("Desea GUARDAR los datos?");
-               Serial.println();
-             Serial.print("Pulsar S para GUARDAR");
-             Serial.println("\t Pulsar N para NO GUARDAR");
+      Serial.println("Desea GUARDAR los datos?");
+      Serial.println();
+      Serial.print("Pulsar S para GUARDAR");
+      Serial.println("\t Pulsar N para NO GUARDAR");
   }
-  if (A == 'S')
-  {
-               Serial.println("Datos Guardados");       
-
-            
-               myFile = SD.open("VIERNES.txt", FILE_WRITE);
-               if(myFile) {
-
-                  myFile.print("Temperatura= ");
-                  myFile.print(t);
-                  myFile.println(" *C");
-                  myFile.close();
-   }
+    if (A == 'S') {
+        Serial.println("Datos Guardados");       
+        myFile = SD.open("VIERNES.txt", FILE_WRITE);
+        if(myFile) {
+           myFile.print("Temperatura= ");
+           myFile.print(t);
+           myFile.println(" *C");
+           myFile.close();
+         }
   }
-
- else if (A == 'N')
-           {
-             Serial.println("Datos NO Guardados");   
-                 myFile.close();         
-  
+    else if (A == 'N'){
+        Serial.println("Datos NO Guardados");   
+        myFile.close();         
       }
   
-
-      else if (A == 'L')
-      {
-
-       Serial.println("Lectura SD:");
-      myFile = SD.open("VIERNES.txt");
-
-  if (myFile) {
-    Serial.println("SD TEST:");
-    
-    // read from the file until there's nothing else in it:
-    while (myFile.available()) {
-    	Serial.write(myFile.read());
+    else if (A == 'L'){
+        Serial.println("Lectura SD:");
+        myFile = SD.open("VIERNES.txt");
+        if (myFile) {
+          Serial.println("SD TEST:");
+          // read from the file until there's nothing else in it:
+          while (myFile.available()) {
+              Serial.write(myFile.read());
+          }
+          // close the file:
+          myFile.close();
+        } else {
+              // if the file didn't open, print an error:
+            Serial.println("ERROR SD TEST");
+        }
+      }
+    else if (A == 'E'){
+       Serial.println("FIN");
     }
-    // close the file:
-    myFile.close();
-  } else {
-  	// if the file didn't open, print an error:
-    Serial.println("ERROR SD TEST");
-  }
-      }
-  else if (A == 'E')
-  {
-                   Serial.println("FIN");
-  }
-/* else
- {
-                    Serial.println(" ELIJA LA OPCION CORRECTA !");
-   }*/
-Serial.println();
+
+    Serial.println();
   }
 
-  }
+}
   
 
